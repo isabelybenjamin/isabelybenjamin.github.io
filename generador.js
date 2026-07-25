@@ -3,7 +3,7 @@ const textarea = document.getElementById("nombres");
 const resultado = document.getElementById("resultado");
 
 const urlBase =
-    window.location.origin + "/?invitados=";
+    "https://isabelybenjamin.github.io/?invitados=";
 
 boton.addEventListener("click", function () {
 
