@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#f6f1e7">
+  <meta name="description" content="Invitación de boda civil de Isabel y Benjamín">
+  <meta property="og:title" content="Isabel & Benjamín · Boda civil">
+  <meta property="og:description" content="29 de agosto de 2026 · 13:30 horas">
+  <title>Isabel & Benjamín · Boda civil</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@400;500;600&family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="ambient ambient-one"></div>
+  <div class="ambient ambient-two"></div>
+
+  <main class="site-shell">
+    <section class="cover reveal">
+      <img src="assets/invitacion.jpeg" alt="Invitación de boda civil de Isabel y Benjamín">
+    </section>
+
+    <section class="guest-card reveal" id="guest-card">
+
+    <p class="kicker">
+        CON MUCHO CARIÑO INVITAMOS A
+    </p>
+
+    <h1 id="guestNames">
+        Nuestros invitados
+    </h1>
+
+    <div class="divider">
+        <span>♥️</span>
+    </div>
+
+    <p class="warm-copy">
+        Con inmensa ilusión queremos compartir este día tan especial con ustedes.
+    </p>
+
+    <p class="guest-policy">
+        Esta invitación es personal y válida únicamente para las personas mencionadas.
+    </p>
+
+</section>
+
+<section class="couple-photo reveal">
+    <img src="assets/foto-papas.jpeg" alt="Isabel y Benjamín" class="couple-image">
+</section>
+
+    <section class="main-card reveal">
+    <div class="section-divider reveal">
+    <span>❦</span>
+</div>
+      <p class="kicker" id="eventDateShort">29 · 08 · 2026</p>
+      <h2>Queremos celebrar con ustedes</h2>
+      <p class="lead">Confirmen su asistencia antes del <strong id="deadline"></strong>.</p>
+      <div class="actions">
+        <button class="btn btn-primary" id="rsvpButton" type="button">Confirmar asistencia</button>
+        <a class="btn" id="mapsButton" href="#" target="_blank" rel="noopener">Cómo llegar</a>
+        <button class="btn" id="giftButton" type="button">Mesa de regalos</button>
+        <button class="btn btn-soft" id="calendarButton" type="button">Agregar al calendario</button>
+      </div>
+    </section>
+
+    <section class="details-grid reveal" aria-label="Detalles del evento">
+      <article><span>Fecha</span><strong id="eventDateLong"></strong></article>
+      <article><span>Hora</span><strong id="eventTime"></strong></article>
+      <article><span>Lugar</span><strong id="venue"></strong></article>
+      <article><span>Código de vestimenta</span><strong id="dressCode"></strong></article>
+    </section>
+
+    <section class="closing reveal">
+      <span class="flourish">❦</span>
+      <p>Gracias por ser parte de nuestra historia.</p>
+      <h2>Isabel & Benjamín</h2>
+    </section>
+  </main>
+
+  <dialog id="rsvpDialog">
+    <div class="modal-card">
+      <button class="modal-close" data-close="rsvpDialog" aria-label="Cerrar">×</button>
+      <p class="kicker">RSVP</p>
+      <h2>Confirmar asistencia</h2>
+      <p class="modal-copy">Marca quiénes de las personas invitadas podrán acompañarnos. No es posible agregar acompañantes.</p>
+      <form id="rsvpForm">
+        <fieldset id="guestChecklist">
+          <legend>Personas invitadas</legend>
+        </fieldset>
+        <label>Restricciones alimenticias <small>(opcional)</small>
+          <input id="diet" type="text" placeholder="Ej. vegetariana o alergia a nueces">
+        </label>
+        <label>Mensaje para los novios <small>(opcional)</small>
+          <textarea id="message" rows="3" placeholder="Escribe un mensaje bonito..."></textarea>
+        </label>
+        <p class="notice">Al continuar se abrirá WhatsApp con el mensaje listo. Solo falta presionar “Enviar”.</p>
+        <button class="btn btn-primary" type="submit">Continuar en WhatsApp</button>
+      </form>
+    </div>
+  </dialog>
+
+  <dialog id="giftDialog">
+    <div class="modal-card gift-modal">
+      <button class="modal-close" data-close="giftDialog" aria-label="Cerrar">×</button>
+      <p class="kicker">Mesa de regalos</p>
+      <h2>Su presencia es nuestro mejor regalo</h2>
+      <p class="modal-copy" id="giftIntro">Los datos bancarios se agregarán próximamente.</p>
+      <img src="assets/regalo.jpeg" alt="Tarjeta de mesa de regalos">
+      <div id="bankDetails" hidden>
+        <dl>
+          <div><dt>Banco</dt><dd id="bankName"></dd></div>
+          <div><dt>CLABE</dt><dd id="clabeValue"></dd></div>
+          <div><dt>A nombre de</dt><dd id="holderName"></dd></div>
+        </dl>
+        <button class="btn btn-soft" id="copyClabe" type="button">Copiar CLABE</button>
+        <p class="notice" id="copyStatus" aria-live="polite"></p>
+      </div>
+    </div>
+  </dialog>
+
+  <script src="config.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>

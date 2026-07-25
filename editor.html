@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#f6f1e7"><title>Editor de invitaciones · Isabel & Benjamín</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600&family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css">
+  <style>
+    body{padding:22px}.editor-shell{width:min(100%,760px);margin:auto}.editor-header{text-align:center;padding:28px 12px}.editor-header h1{margin:0;color:var(--green);font-size:clamp(2.7rem,10vw,4.8rem)}.editor-card{background:var(--paper);border:1px solid var(--line);border-radius:28px;padding:24px;box-shadow:var(--shadow)}.editor-card label{display:grid;gap:8px;font-weight:600}.help{font-size:.84rem;color:var(--muted);line-height:1.6}.result{display:grid;gap:13px;margin-top:24px}.preview-box{padding:22px;border-radius:20px;background:rgba(41,75,53,.05);text-align:center}.preview-box strong{display:block;font:600 2rem "Cormorant Garamond",serif;color:var(--green)}.link-box{padding:13px;border:1px solid var(--line);border-radius:14px;background:#fff;word-break:break-all;font-size:.82rem}.editor-actions{display:grid;gap:10px}.steps{margin-top:20px;padding:18px;border-radius:18px;background:rgba(183,138,45,.06);font-size:.84rem;line-height:1.65}.steps strong{color:var(--green)}@media(min-width:650px){.editor-actions{grid-template-columns:1fr 1fr}}
+  </style>
+</head>
+<body>
+  <main class="editor-shell">
+    <header class="editor-header"><p class="kicker">Panel privado</p><h1>Personalizar invitación</h1><p class="help">Escribe solamente a las personas que están invitadas. Cada nombre debe ir en una línea.</p></header>
+    <section class="editor-card">
+      <label for="names">Nombres de las personas invitadas
+        <textarea id="names" rows="5" placeholder="Ejemplo:&#10;María López&#10;José Pérez"></textarea>
+      </label>
+      <p class="help">No escribas “Familia Pérez” salvo que toda la familia esté invitada. Para controlar el número de lugares, lo mejor es colocar cada nombre.</p>
+      <button class="btn btn-primary" id="generate" type="button">Generar invitación personalizada</button>
+      <div class="result" id="result" hidden>
+        <div class="preview-box"><span>La invitación mostrará:</span><strong id="previewName"></strong></div>
+        <div class="link-box" id="generatedLink"></div>
+        <div class="editor-actions">
+          <button class="btn" id="copyLink" type="button">Copiar enlace</button>
+          <a class="btn btn-soft" id="previewLink" href="#" target="_blank" rel="noopener">Abrir vista previa</a>
+        </div>
+        <p class="notice" id="status" aria-live="polite"></p>
+      </div>
+      <div class="steps"><strong>Uso diario:</strong> abre este editor, escribe los nombres, genera el enlace, ábrelo para verificarlo y después cópialo en WhatsApp. No se modifica la invitación general.</div>
+    </section>
+  </main>
+<script>
+const input=document.getElementById('names'),result=document.getElementById('result'),box=document.getElementById('generatedLink'),preview=document.getElementById('previewLink');let current='';
+function joinNames(n){if(n.length===1)return n[0];if(n.length===2)return `${n[0]} y ${n[1]}`;return `${n.slice(0,-1).join(', ')} y ${n.at(-1)}`}
+document.getElementById('generate').addEventListener('click',()=>{const names=input.value.split('\n').map(v=>v.trim()).filter(Boolean);if(!names.length){alert('Escribe al menos un nombre.');return}if(names.length>12){alert('Máximo 12 nombres por invitación.');return}const url=new URL('index.html',location.href);url.searchParams.set('invitados',names.join('|'));current=url.href;document.getElementById('previewName').textContent=joinNames(names);box.textContent=current;preview.href=current;result.hidden=false;document.getElementById('status').textContent='';});
+document.getElementById('copyLink').addEventListener('click',async()=>{try{await navigator.clipboard.writeText(current);document.getElementById('status').textContent='Enlace copiado. Ya puedes pegarlo en WhatsApp.'}catch{document.getElementById('status').textContent='Mantén presionado el enlace y cópialo manualmente.'}});
+</script>
+</body>
+</html>

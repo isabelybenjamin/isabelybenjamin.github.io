@@ -1,0 +1,31 @@
+INVITACIÓN DIGITAL · ISABEL & BENJAMÍN
+
+ESTADO ACTUAL
+- Diseño final terminado.
+- Ubicación, fecha, hora, vestimenta y WhatsApp configurados.
+- Confirmación limitada exclusivamente a las personas nombradas.
+- Editor de invitados incluido.
+- Solo faltan los datos bancarios y publicar la página para tener un enlace público.
+
+ARCHIVOS IMPORTANTES
+1. index.html     Invitación principal.
+2. editor.html    Editor para generar enlaces personalizados.
+3. config.js      Datos generales y bancarios.
+
+PARA VERLA AHORA
+Abre index.html en una computadora. Para probar nombres personalizados, abre editor.html, escribe los nombres y presiona “Generar invitación personalizada”.
+
+PARA AGREGAR DATOS BANCARIOS
+Abre config.js con un editor de texto y completa:
+  bank: "Nombre del banco",
+  clabe: "18 dígitos",
+  accountHolder: "Nombre del titular"
+Guarda el archivo. La sección y el botón “Copiar CLABE” aparecerán automáticamente.
+
+PARA PUBLICARLA
+Sube toda esta carpeta a un servicio de hosting estático, por ejemplo Netlify Drop. Una vez publicada, entra a:
+  https://TU-DOMINIO/editor.html
+Desde ahí podrás generar y copiar cada enlace personalizado.
+
+IMPORTANTE
+No cambies los nombres de los archivos ni saques las imágenes de la carpeta assets.
