@@ -60,47 +60,30 @@ $("rsvpForm").addEventListener("submit",event=>{
   const invited = invitedGuests.length ? joinNames(invitedGuests) : "Invitación sin personalizar";
   const diet=$("diet").value.trim()||"Ninguna";
   const message=$("message").value.trim()||"Sin mensaje adicional";
-  const text=[
-    `Hola, queremos confirmar nuestra asistencia a la boda civil de ${CONFIG.couple.replace("&","y")}.`,"",
-    `Invitación para: ${invited}`,
-    none ? "Confirmación: No podremos asistir." : `Asistirán: ${joinNames(selected)}.`,
-    `Restricciones alimenticias: ${diet}`,
-    `Mensaje: ${message}`
-  ].join("\n");
-  window.open(
-    https://wa.me/${CONFIG.whatsappNumber}?text=${encodeURIComponent(text)},
-    "_blank",
-    "noopener"
-);
+  const text = [
+  `Hola, queremos confirmar nuestra asistencia a la boda civil de ${CONFIG.couple.replace("&","y")}.`,
+  "",
+  `Invitación para: ${invited}`,
+  none
+    ? "Confirmación: No podremos asistir."
+    : `Asistirán: ${joinNames(selected)}.`,
+  `Restricciones alimenticias: ${diet}`,
+  `Mensaje: ${message}`
+].join("\n");
+  const whatsappUrl =
+    `https://wa.me/${CONFIG.whatsappNumber}?text=${encodeURIComponent(text)}`;
 
 document.getElementById("rsvpDialog").close();
 
-const card = document.querySelector(".guest-card");
+const thanksDialog = document.getElementById("thanksDialog");
 
-card.innerHTML = `
-<div class="thank-you-card">
-    <div class="thank-heart">🤍</div>
+thanksDialog.showModal();
 
-    <h2>¡Muchas gracias!</h2>
+document.getElementById("openWhatsapp").onclick = () => {
+    thanksDialog.close();
+    window.open(whatsappUrl, "_blank", "noopener");
+};
 
-    <p class="thank-subtitle">
-        Hemos recibido correctamente su confirmación de asistencia.
-    </p>
-
-    <p>
-        Con mucho cariño compartimos con ustedes nuestra invitación de boda civil y nos llena de alegría saber que nos acompañarán en este día tan especial.
-    </p>
-
-    <p class="closing">
-        ¡Los esperamos con muchísima ilusión!
-    </p>
-
-    <div class="signature">
-        <strong>Con cariño,</strong><br>
-        Isabel & Benjamín
-    </div>
-</div>
-`;
 });
 
 function setupBank(){
