@@ -71,7 +71,20 @@ $("rsvpForm").addEventListener("submit",event=>{
   `Mensaje: ${message}`
 ].join("\n");
   const whatsappUrl =
-    `https://wa.me/${CONFIG.whatsappNumber}?text=${encodeURIComponent(text)}`;
+  `https://wa.me/${CONFIG.whatsappNumber}?text=${encodeURIComponent(text)}`;
+
+fetch("https://script.google.com/macros/s/AKfycbxNt4IbGwszcwIVpXuWSvuMy0Fff0c3xIaZ04CxnuCJi1ldtu7kfqJWMTcXsGVTYi0fVQ/exec", {
+    method: "POST",
+    body: JSON.stringify({
+        invitados: invitedGuests.join(", "),
+        asistiran: none ? "" : selected.join(", "),
+        noAsistiran: none ? invitedGuests.join(", ") : "",
+        restricciones: diet,
+        mensaje: message
+    }),
+}).catch(error => {
+    console.error("Error al guardar en Google Sheets:", error);
+});
 
 document.getElementById("rsvpDialog").close();
 
