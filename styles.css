@@ -117,3 +117,61 @@ border: 8px solid #faf8f4;
     letter-spacing: .02em;
     color: #5d5146;
 }
+/* ---------- Tarjeta de agradecimiento ---------- */
+
+.thank-you-card{
+    text-align:center;
+    padding:50px 30px;
+    animation:fadeIn .8s ease;
+}
+
+.thank-heart{
+    font-size:42px;
+    margin-bottom:20px;
+}
+
+.thank-you-card h2{
+    font-family:"Cormorant Garamond",serif;
+    color:#31563d;
+    font-size:44px;
+    margin-bottom:20px;
+}
+
+.thank-subtitle{
+    font-size:22px;
+    color:#b68b2e;
+    margin-bottom:28px;
+    font-weight:600;
+}
+
+.thank-you-card p{
+    max-width:620px;
+    margin:18px auto;
+    line-height:1.8;
+    font-size:20px;
+}
+
+.closing{
+    font-family:"Cormorant Garamond",serif;
+    font-size:30px;
+    color:#31563d;
+    margin-top:35px;
+}
+
+.signature{
+    margin-top:35px;
+    font-size:22px;
+    color:#31563d;
+}
+
+@keyframes fadeIn{
+    from{
+        opacity:0;
+        transform:translateY(20px);
+    }
+
+    to{
+        opacity:1;
+        transform:translateY(0);
+    }
+}
