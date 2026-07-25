@@ -2,7 +2,10 @@ const CONFIG = window.WEDDING_CONFIG;
 const $ = (id) => document.getElementById(id);
 const params = new URLSearchParams(location.search);
 const invitedGuests = (params.get("invitados") || "")
-  .split("|").map(v => v.trim()).filter(Boolean).slice(0, 12);
+    .split("|")
+    .map(v => decodeURIComponent(v).trim())
+    .filter(Boolean)
+    .slice(0, 12);
 
 function joinNames(names){
     return names.join("<br>");
