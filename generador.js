@@ -2,7 +2,8 @@ const boton = document.getElementById("generar");
 const textarea = document.getElementById("nombres");
 const resultado = document.getElementById("resultado");
 
-const urlBase = "index.html?invitados=";
+const urlBase =
+    window.location.origin + "/?invitados=";
 
 boton.addEventListener("click", function () {
 
