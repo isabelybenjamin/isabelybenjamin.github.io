@@ -67,7 +67,40 @@ $("rsvpForm").addEventListener("submit",event=>{
     `Restricciones alimenticias: ${diet}`,
     `Mensaje: ${message}`
   ].join("\n");
-  window.open(`https://wa.me/${CONFIG.whatsappNumber}?text=${encodeURIComponent(text)}`,"_blank","noopener");
+  window.open(
+    https://wa.me/${CONFIG.whatsappNumber}?text=${encodeURIComponent(text)},
+    "_blank",
+    "noopener"
+);
+
+document.getElementById("rsvpDialog").close();
+
+const card = document.querySelector(".guest-card");
+
+card.innerHTML = `
+<div class="thank-you-card">
+    <div class="thank-heart">🤍</div>
+
+    <h2>¡Muchas gracias!</h2>
+
+    <p class="thank-subtitle">
+        Hemos recibido correctamente su confirmación de asistencia.
+    </p>
+
+    <p>
+        Con mucho cariño compartimos con ustedes nuestra invitación de boda civil y nos llena de alegría saber que nos acompañarán en este día tan especial.
+    </p>
+
+    <p class="closing">
+        ¡Los esperamos con muchísima ilusión!
+    </p>
+
+    <div class="signature">
+        <strong>Con cariño,</strong><br>
+        Isabel & Benjamín
+    </div>
+</div>
+`;
 });
 
 function setupBank(){
