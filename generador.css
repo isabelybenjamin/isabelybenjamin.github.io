@@ -1,4 +1,6 @@
-/* ====== ESTILOS GENERALES ====== */
+/* ==========================
+   ESTILOS GENERALES
+========================== */
 
 *{
     margin:0;
@@ -16,11 +18,15 @@ body{
 .contenedor{
     max-width:850px;
     margin:auto;
-    background:#ffffff;
+    background:#fff;
     padding:45px;
     border-radius:20px;
     box-shadow:0 12px 40px rgba(0,0,0,.08);
 }
+
+/* ==========================
+   TÍTULOS
+========================== */
 
 h1{
     font-family:'Cormorant Garamond',serif;
@@ -32,113 +38,179 @@ h1{
 
 .subtitulo{
     text-align:center;
+    color:#666;
     line-height:1.7;
     margin-bottom:30px;
-    color:#666;
 }
 
-/* ====== TEXTAREA ====== */
+/* ==========================
+   TEXTAREA
+========================== */
 
 textarea{
+
     width:100%;
     min-height:280px;
+
     padding:20px;
+
     border:1px solid #d9d2c5;
     border-radius:14px;
-    font-size:15px;
+
     font-family:inherit;
+    font-size:15px;
+
     resize:vertical;
-    margin-bottom:25px;
+
     outline:none;
+
+    margin-bottom:25px;
+
 }
 
 textarea:focus{
+
     border-color:#b08d57;
+
 }
 
-/* ====== BOTÓN ====== */
+/* ==========================
+   BOTONES
+========================== */
 
 button{
+
     display:block;
+
     width:100%;
+
     padding:16px;
-    background:linear-gradient(135deg,#b08d57,#c8a46a);
-    color:#fff;
+
     border:none;
     border-radius:999px;
+
+    background:linear-gradient(
+        135deg,
+        #b08d57,
+        #c8a46a
+    );
+
+    color:white;
+
     font-size:16px;
     font-weight:600;
+
     cursor:pointer;
-    transition:all .25s ease;
+
+    transition:.25s;
+
 }
 
 button:hover{
+
     transform:translateY(-2px);
+
     box-shadow:0 8px 18px rgba(176,141,87,.25);
+
 }
 
-/* ====== RESULTADOS ====== */
+/* ==========================
+   TARJETAS
+========================== */
 
 .familia{
-    background:#fcfbf8;
-    border:1px solid #ece6dc;
-    border-radius:16px;
-    padding:25px;
+
     margin-top:25px;
-}
 
-.familia pre{
-    font-family:'Cormorant Garamond',serif;
-    font-size:1.6rem;
-    white-space:pre-wrap;
-    margin-bottom:18px;
-    color:#6e5a43;
-}
+    padding:25px;
 
-.enlace{
-    font-size:.9rem;
-    word-break:break-word;
-    color:#666;
-    margin-bottom:18px;
-}
+    border-radius:16px;
 
-hr{
-    display:none;
-}
-.linea{
-    width:100%;
-    height:1px;
-    background:#e6dfd5;
-    margin:18px 0;
-}
+    background:#fcfbf8;
 
-.copiar{
-    display:block;
-    margin-left:auto;
-}
-.enlace{
-    background:#f4f1eb;
-    border:1px solid #ddd4c7;
-    border-radius:12px;
-    padding:14px 16px;
-    font-size:.9rem;
-    color:#555;
-    margin-bottom:18px;
-    word-break:break-all;
-    font-family:monospace;
-}
-.copiar{
-    width:auto;
-    padding:12px 24px;
-    margin-left:auto;
-    font-size:14px;
-}
-.familia{
-    transition:transform .2s ease,
-               box-shadow .2s ease;
+    border:1px solid #ece6dc;
+
+    transition:
+        transform .2s,
+        box-shadow .2s;
+
 }
 
 .familia:hover{
+
     transform:translateY(-3px);
+
     box-shadow:0 10px 24px rgba(0,0,0,.08);
+
+}
+
+.familia pre{
+
+    font-family:'Cormorant Garamond',serif;
+
+    font-size:1.6rem;
+
+    white-space:pre-wrap;
+
+    color:#6e5a43;
+
+    margin-bottom:18px;
+
+}
+
+/* ==========================
+   ENLACE
+========================== */
+
+.enlace{
+
+    background:#f4f1eb;
+
+    border:1px solid #ddd4c7;
+
+    border-radius:12px;
+
+    padding:14px 16px;
+
+    margin-bottom:18px;
+
+    font-family:monospace;
+
+    font-size:.9rem;
+
+    color:#555;
+
+    word-break:break-all;
+
+}
+
+/* ==========================
+   SEPARADOR
+========================== */
+
+.linea{
+
+    width:100%;
+    height:1px;
+
+    background:#e6dfd5;
+
+    margin:18px 0;
+
+}
+
+/* ==========================
+   BOTÓN COPIAR
+========================== */
+
+.copiar{
+
+    width:auto;
+
+    padding:12px 24px;
+
+    margin-left:auto;
+
+    font-size:14px;
+
 }

@@ -1,14 +1,51 @@
 const CONFIG = window.WEDDING_CONFIG;
 const $ = (id) => document.getElementById(id);
-const params = new URLSearchParams(location.search);
-const invitedGuests = (params.get("invitados") || "")
-    .split("|")
-    .map(v => decodeURIComponent(v).trim())
-    .filter(Boolean)
-    .slice(0, 12);
+
+const SCRIPT_URL =
+"https://script.google.com/macros/s/AKfycbxNt4IbGwszcwIVpXuWSvuMy0Fff0c3xIaZ04CxnuCJi1ldtu7kfqJWMTcXsGVTYi0fVQ/exec";
+
+let invitedGuests = [];
+let invitadoActual = null;
+
+async function llamarServidor(datos){
+
+    const respuesta = await fetch(SCRIPT_URL,{
+        method:"POST",
+        body:JSON.stringify(datos)
+    });
+
+    return await respuesta.json();
+
+}
 
 function joinNames(names){
     return names.join("<br>");
+}
+
+async function cargarInvitacion(){
+
+    const id = new URLSearchParams(window.location.search).get("id");
+
+    if(!id){
+        alert("Invitación no válida.");
+        return;
+    }
+
+    const respuesta = await llamarServidor({
+        accion:"buscarInvitado",
+        id:id
+    });
+
+    if(!respuesta.ok){
+        alert("Invitación no encontrada.");
+        return;
+    }
+
+    invitadoActual = respuesta.invitado;
+    invitedGuests = respuesta.invitado.personas || [respuesta.invitado.nombre];
+
+    fillPage();
+    buildGuestChecklist();
 }
 
 function fillPage(){
@@ -26,7 +63,7 @@ function fillPage(){
 function buildGuestChecklist(){
   const fieldset = $("guestChecklist");
   fieldset.querySelectorAll("label").forEach(el => el.remove());
-  const names = invitedGuests.length ? invitedGuests : ["Persona invitada"];
+  const names = invitedGuests;
   names.forEach((name,index)=>{
     const label=document.createElement("label");
     label.className="check-row";
@@ -52,50 +89,49 @@ document.querySelectorAll("dialog").forEach(dialog=>dialog.addEventListener("cli
 $("rsvpButton").addEventListener("click",()=>openDialog("rsvpDialog"));
 $("giftButton").addEventListener("click",()=>openDialog("giftDialog"));
 
-$("rsvpForm").addEventListener("submit",event=>{
+$("rsvpForm").addEventListener("submit", async event => {
+
   event.preventDefault();
-  const selected=[...document.querySelectorAll('input[name="confirmedGuest"]:checked')].map(el=>el.value);
-  const none=$("noneAttending").checked;
-  if(!selected.length && !none){alert("Marca quiénes asistirán o selecciona que ninguna persona podrá asistir.");return;}
+
+  const selected = [...document.querySelectorAll('input[name="confirmedGuest"]:checked')].map(el => el.value);
+  const none = $("noneAttending").checked;
+
+  if (!selected.length && !none) {
+    alert("Marca quiénes asistirán o selecciona que ninguna persona podrá asistir.");
+    return;
+  }
+
   const invited = invitedGuests.length ? joinNames(invitedGuests) : "Invitación sin personalizar";
-  const diet=$("diet").value.trim()||"Ninguna";
-  const message=$("message").value.trim()||"Sin mensaje adicional";
+
+  const diet = $("diet").value.trim() || "Ninguna";
+  const message = $("message").value.trim() || "Sin mensaje adicional";
+
   const text = [
-  `Hola, queremos confirmar nuestra asistencia a la boda civil de ${CONFIG.couple.replace("&","y")}.`,
-  "",
-  `Invitación para: ${invited}`,
-  none
-    ? "Confirmación: No podremos asistir."
-    : `Asistirán: ${joinNames(selected)}.`,
-  `Restricciones alimenticias: ${diet}`,
-  `Mensaje: ${message}`
-].join("\n");
-  const whatsappUrl =
-  `https://wa.me/${CONFIG.whatsappNumber}?text=${encodeURIComponent(text)}`;
+    `Hola, queremos confirmar nuestra asistencia a la boda civil de ${CONFIG.couple.replace("&","y")}.`,
+    "",
+    `Invitación para: ${invited}`,
+    none ? "Confirmación: No podremos asistir." : `Asistirán: ${joinNames(selected)}.`,
+    `Restricciones alimenticias: ${diet}`,
+    `Mensaje: ${message}`
+  ].join("\n");
 
-fetch("https://script.google.com/macros/s/AKfycbxNt4IbGwszcwIVpXuWSvuMy0Fff0c3xIaZ04CxnuCJi1ldtu7kfqJWMTcXsGVTYi0fVQ/exec", {
-    method: "POST",
-    body: JSON.stringify({
-        invitados: invitedGuests.join(", "),
-        asistiran: none ? "" : selected.join(", "),
-        noAsistiran: none ? invitedGuests.join(", ") : "",
-        restricciones: diet,
-        mensaje: message
-    }),
-}).catch(error => {
-    console.error("Error al guardar en Google Sheets:", error);
-});
+  await llamarServidor({
 
-document.getElementById("rsvpDialog").close();
+    accion: "confirmarAsistencia",
 
-const thanksDialog = document.getElementById("thanksDialog");
+    id: invitadoActual.id,
 
-thanksDialog.showModal();
+    restricciones: diet,
 
-document.getElementById("openWhatsapp").onclick = () => {
-    thanksDialog.close();
-    window.open(whatsappUrl, "_blank", "noopener");
-};
+    mensaje: message
+
+  });
+
+  window.open(
+    `https://wa.me/${CONFIG.whatsappNumber}?text=${encodeURIComponent(text)}`,
+    "_blank",
+    "noopener"
+  );
 
 });
 
@@ -122,7 +158,7 @@ $("calendarButton").addEventListener("click",()=>{
   const a=document.createElement("a");a.href=url;a.download="boda-isabel-benjamin.ics";document.body.appendChild(a);a.click();a.remove();URL.revokeObjectURL(url);
 });
 
-fillPage();buildGuestChecklist();setupBank();
+setupBank();
+cargarInvitacion();
 const observer=new IntersectionObserver(entries=>entries.forEach(entry=>{if(entry.isIntersecting){entry.target.classList.add("visible");observer.unobserve(entry.target)}}),{threshold:.12});
 document.querySelectorAll(".reveal").forEach(el=>observer.observe(el));
-
