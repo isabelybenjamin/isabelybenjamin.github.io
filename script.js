@@ -163,15 +163,6 @@ function setupBank(){
   });
 }
 
-$("calendarButton").addEventListener("click",()=>{
-  const ics=["BEGIN:VCALENDAR","VERSION:2.0","PRODID:-//Invitacion Isabel y Benjamin//ES","BEGIN:VEVENT",
-    "UID:isabel-benjamin-20260829@invitacion.local",`DTSTART:${CONFIG.calendarStartUtc}`,`DTEND:${CONFIG.calendarEndUtc}`,
-    `SUMMARY:Boda civil de ${CONFIG.couple}`,`LOCATION:${CONFIG.venue}`,
-    `DESCRIPTION:${CONFIG.dressCode}. Confirmar antes del ${CONFIG.confirmationDeadline}.`,"END:VEVENT","END:VCALENDAR"].join("\r\n");
-  const url=URL.createObjectURL(new Blob([ics],{type:"text/calendar;charset=utf-8"}));
-  const a=document.createElement("a");a.href=url;a.download="boda-isabel-benjamin.ics";document.body.appendChild(a);a.click();a.remove();URL.revokeObjectURL(url);
-});
-
 setupBank();
 cargarInvitacion();
 const observer=new IntersectionObserver(entries=>entries.forEach(entry=>{if(entry.isIntersecting){entry.target.classList.add("visible");observer.unobserve(entry.target)}}),{threshold:.12});
