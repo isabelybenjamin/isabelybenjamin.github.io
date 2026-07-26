@@ -121,6 +121,8 @@ $("rsvpForm").addEventListener("submit", async event => {
 
   id: invitadoActual.id,
 
+  asistira: !none,
+
   restricciones: diet,
 
   mensaje: message
