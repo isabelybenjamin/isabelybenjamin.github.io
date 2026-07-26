@@ -117,21 +117,33 @@ $("rsvpForm").addEventListener("submit", async event => {
 
   await llamarServidor({
 
-    accion: "confirmarAsistencia",
+  accion: "confirmarAsistencia",
 
-    id: invitadoActual.id,
+  id: invitadoActual.id,
 
-    restricciones: diet,
+  restricciones: diet,
 
-    mensaje: message
+  mensaje: message
 
-  });
+});
+
+const whatsappUrl =
+  `https://wa.me/${CONFIG.whatsappNumber}?text=${encodeURIComponent(text)}`;
+
+$("thanksDialog").showModal();
+
+$("openWhatsapp").onclick = () => {
 
   window.open(
-    `https://wa.me/${CONFIG.whatsappNumber}?text=${encodeURIComponent(text)}`,
+    whatsappUrl,
     "_blank",
     "noopener"
   );
+
+  $("thanksDialog").close();
+  $("rsvpDialog").close();
+
+};
 
 });
 
