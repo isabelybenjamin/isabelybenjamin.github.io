@@ -129,6 +129,8 @@ $("rsvpForm").addEventListener("submit", async event => {
 
 const whatsappUrl =
   `https://wa.me/${CONFIG.whatsappNumber}?text=${encodeURIComponent(text)}`;
+  
+alert("Antes del diálogo");
 
 $("thanksDialog").showModal();
 
